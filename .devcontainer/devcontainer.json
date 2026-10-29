@@ -1,0 +1,13 @@
+{
+  "name": "detector",
+  "build": { "dockerfile": "../Dockerfile", "context": ".." },
+  "runArgs": ["--gpus", "all"],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/work,type=bind",
+  "workspaceFolder": "/work",
+  "remoteUser": "ubuntu",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python", "ms-vscode.cpptools", "ms-vscode.cmake-tools"]
+    }
+  }
+}
