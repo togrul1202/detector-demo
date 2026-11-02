@@ -1,1 +1,4 @@
 numpy
+onnxruntime-gpu
+opencv-python-headless
+pytest
