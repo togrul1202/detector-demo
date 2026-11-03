@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 
+import onnxruntime as ort
+
 INPUT_SIZE = (640, 640)  # (height, width)
 PAD_VALUE = 114
 
@@ -17,3 +19,12 @@ def preprocess(image_bgr, input_size=INPUT_SIZE):
     tensor = padded.transpose(2, 0, 1)                        # HWC -> CHW
     tensor = np.ascontiguousarray(tensor, dtype=np.float32)
     return tensor[None], ratio                                # (1, 3, 640, 640)
+
+
+def create_session(model_path, use_gpu=True):
+    providers = ["CPUExecutionProvider"]
+    if use_gpu:
+        providers = ["CUDAExecutionProvider", "CPUExecutionProvider"]
+    session = ort.InferenceSession(model_path, providers=providers)
+    print("Providers in use:", session.get_providers())
+    return session
